@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="de" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Weight-Unit converter</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{/fontawesome/css/font-awesome.min.css}"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        .invalid-feedback {
+          font-size: .75rem;
+        }
+    </style>
+</head>
+<body>
+<article class="container">
+    <header class="row mt-3 mb-3">
+        <section class="justify-content-center align-items-center d-flex col-sm-12">
+            <span class="fa fa-wrench fa-5x" aria-hidden="true"></span>
+            &nbsp;&nbsp;
+            <h1>Weight-Unit converter</h1>
+        </section>
+    </header>
+    <section>
+        <form class="row mt-3" action="#" method="POST" th:action="@{/convert}" th:object="${dataTransferObject}">
+            <div class="offset-sm-4 col-sm-4 mb-3">
+                <div class="row mt-3">
+                    <label for="txtValue" class="form-label">Value:</label>
+                    <div class="input-group has-validation">
+                        <span class="input-group-text">#</span>
+                        <input type="text" id="txtValue" th:field="*{value}" th:errorclass="danger"
+                               class="form-control"
+                               th:classappend="${#fields.hasErrors('value') ? 'is-invalid' : ''}"
+                               placeholder="Value"
+                               aria-label="Value"/>
+                        <p th:if="${#fields.hasErrors('value')}" th:errors="*{value}"
+                           class="invalid-feedback"></p>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <label for="from" class="form-label">Input:</label>
+                    <div class="input-group has-validation">
+                        <select class="form-select" aria-label="Weight Unit to convert to" id="from"
+                                name="from">
+                            <option
+                                    th:each="unit: ${units}"
+                                    th:selected="${unit.value.shortName == 'kg'}"
+                                    th:value="${unit.value.shortName}"
+                            >
+                                <span th:text="${unit.value.longName}"></span> (<span th:text="${unit.value.shortName}"></span>)
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <label for="to" class="form-label">Convert to:</label>
+                    <div class="input-group has-validation">
+                        <select class="form-select" aria-label="Weight Unit to convert to" id="to"
+                                name="to">
+                            <option
+                                    th:each="unit: ${units}"
+                                    th:value="${unit.value.shortName}"
+                            >
+                                <span th:text="${unit.value.longName}"></span> (<span th:text="${unit.value.shortName}"></span>)
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <button type="submit" class="btn btn-outline-success me-2"><span class="fa fa-check"></span>&nbsp;Convert
+                    </button>
+                </div>
+                <div class="row mt-3" th:if="${result}">
+                    <p class="lead">Result:
+                        <span th:text="${result.displayValue}"></span>&nbsp;<span th:text="${result.to}"></span>
+                    </p>
+                </div>
+        </form>
+    </section>
+</article>
+<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>
