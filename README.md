@@ -16,38 +16,39 @@ This will give you the code base you need to start this exercise.
 
 ### Let's start
 
-1. Create the package ```de.brightslearning.weightconverter```!
+1. Create a new Spring Boot Application (Class) named ```WeightConverterApplication```! It should have a ```main``` method that starts the application!
 
-2. Create a new Spring Boot Application (Class) named ```WeightConverterApplication```! It should have a ```main``` method that starts the application!
-
-3. Create a bean named ```de.brightslearning.weightconverter.model.Unit```! It should
+2. Create a bean named ```de.brightslearning.weightconverter.model.Unit```! It should
 
 * have two private attributes
     * String shortName
     * String longName
 * have all the necessary constructors
-* Getters and setters for all of its attributes
-* a default ```toString``` method
+* have getters and setters for all of its attributes
+* have a default ```toString``` method
 
-4. Create a bean named ```de.brightslearning.weightconverter.model.DataTransferObject```! It should
+3. Create a bean named ```de.brightslearning.weightconverter.model.DataTransferObject```! It should
 
 * have three private attributes
     * Double value
     * String from
     * String to
 * have all the necessary constructors
-* Getters and setters for all of its attributes
-* a default ```toString``` method
+* have getters and setters for all of its attributes
+* have a default ```toString``` method
+* have a method named ```getDisplayValue``` that returns ```value``` in a well formatted way (Hint: Use ```String.format("%,.4f", value)``` to format ```value```)
 
-5. Open the service bean named ```de.brightslearning.weightconverter.service.ConverterService```!
+4. Open the service bean named ```de.brightslearning.weightconverter.service.ConverterService```!
 
 * Add an empty constructor that executes the ```initializeConversionMatrix``` method
 * Add a ```DataTransferObject convert(String from, String to, Double value)``` method that uses the conversion matrix to convert ```value``` from weight unit ```from``` to weight unit ```to```
 
-6. Create a ```Map<String, Unit>```
+5. Create a ```Map<String, Unit>```
 
 * which has the name ```units```
-* that is registered in the application context as bean (Hint: You have to create a method and annotate it with the ```@Bean``` annotation)
+* that is registered in the application context as bean
+  * Hint: You have to create a method and annotate it with the ```@Bean``` annotation)
+  * Hint: You have to do this in a class that is explicitly or implicitly annotated with ```@Configuration```
 * that reflects the following table
 
 | Key | Value|
@@ -57,9 +58,9 @@ This will give you the code base you need to start this exercise.
 | g | ```Unit("g", "Gramm")``` |
 | mg| ```Unit("mg", "Milligramm")``` |
 
-7. Create a controller class named ```de.brightslearning.weightconverter.controller.WeightUnitConverterController```!
+6. Create a controller class named ```de.brightslearning.weightconverter.controller.WeightUnitConverterController```!
 
-8. Create a constructor for the ```de.brightslearning.weightconverter.controller.WeightUnitConverterController``` class that injects the ```ApplicationContext``` and the ```de.brightslearning.weightconverter.service.ConverterService```!
+7. Create a constructor for the ```de.brightslearning.weightconverter.controller.WeightUnitConverterController``` class that injects the ```ApplicationContext``` and the ```de.brightslearning.weightconverter.service.ConverterService```!
 
 8. Create the ```index``` method! It should
 
